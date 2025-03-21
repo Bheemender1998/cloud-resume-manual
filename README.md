@@ -84,9 +84,10 @@ Testing & Validation
 •	Implement authentication for API security.
 
 
-Contributing
+**Contributing**
 
 Feel free to contribute by submitting issues or pull requests. Improvements and optimizations are always welcome!
+
 
 Author
 
