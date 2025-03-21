@@ -30,14 +30,14 @@ Amazon CloudWatch for logging and monitoring Lambda executions.
 
 **Technologies Used**
 
-AWS S3 - Static website hosting
-Amazon CloudFront - Content Delivery Network (CDN)
-AWS Route 53 - Domain name management
-AWS API Gateway - REST API creation
-AWS Lambda - Serverless function execution
-Amazon DynamoDB - NoSQL database for visitor count
-IAM Roles & Policies - Secure access control
-CloudWatch - Monitoring and logging
+AWS S3 - Static website hosting, 
+Amazon CloudFront - Content Delivery Network (CDN), 
+AWS Route 53 - Domain name management, 
+AWS API Gateway - REST API creation, 
+AWS Lambda - Serverless function execution, 
+Amazon DynamoDB - NoSQL database for visitor count, 
+IAM Roles & Policies - Secure access control, 
+CloudWatch - Monitoring and logging, 
 
 **Steps Taken**
 
@@ -56,12 +56,15 @@ Pushed the code to GitHub for version control and documentation.
 
 **Future Enhancements**
 
-Implement the same project using AWS SAM (Infrastructure as Code)
+Implement the same project using AWS SAM (Infrastructure as Code), 
 Implement the same project using Terraform (Infrastructure as Code)
 
 Compare all three approaches in a blog post
+
 Automate deployments with GitHub Actions
+
 Improve UI design for a better user experience
+
 
 **Blog Comparison (Coming Soon)**
 
@@ -73,3 +76,5 @@ Best practices for cloud-based applications
 
 Author
 Bheemender Gurram
+
+Credits: @[Gilbert Mutai](https://github.com/Mutai-Gilbert/Mutai-Gilbert)
