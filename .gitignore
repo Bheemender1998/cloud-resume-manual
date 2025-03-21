@@ -1,0 +1,6 @@
+.env
+venv1/
+# Local .terraform directories
+infra/.terraform/*
+infra/.terraform.*
+infra/terraform*
