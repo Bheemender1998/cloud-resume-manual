@@ -1,81 +1,29 @@
-name: CI/CD Pipeline with Terraform
+name: Deploy to AWS
 
 on:
   push:
     branches:
-      - main
-  pull_request:
-    branches:
-      - main
+      - main  # Triggers deployment when code is pushed to main branch
 
 jobs:
-  backend:
+  deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v2
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
         with:
-          terraform_version: 1.3.0
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Initialize Terraform
+      - name: Deploy to S3
         run: |
-          cd backend
-          terraform init
+          aws s3 sync . s3://bheemender-cloud-resume-challenge --delete
 
-      - name: Apply Terraform (Backend)
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - name: Invalidate CloudFront Cache
         run: |
-          cd backend
-          terraform apply -auto-approve
-
-  frontend:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      - name: Install dependencies
-        run: |
-          cd frontend
-          npm install
-
-      - name: Build Frontend
-        run: |
-          cd frontend
-          npm run build
-
-      - name: Sync Frontend Build to S3
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: |
-          aws s3 sync frontend/build s3://your-bucket-name --delete
-
-      - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v2
-        with:
-          terraform_version: 1.3.0
-
-      - name: Initialize Terraform
-        run: |
-          cd frontend/terraform
-          terraform init
-
-      - name: Apply Terraform (Frontend)
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: |
-          cd frontend/terraform
-          terraform apply -auto-approve
-
+          aws cloudfront create-invalidation --distribution-id EIZ9B0AYQP5A9 --paths "/*"
