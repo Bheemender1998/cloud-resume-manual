@@ -1,102 +1,82 @@
-**Cloud Resume Challenge - Manual Deployment**
-
 This repository contains the manual implementation of the Cloud Resume Challenge. The project showcases how to deploy a cloud-based resume website with a visitor counter using AWS services and Netlify for hosting.
 
-**Architecture Overview**
+## Architecture Overview
 
-The architecture follows a manual deployment approach where we configure AWS services without Infrastructure as Code (IaC).
-The key components include:
+The architecture follows a manual deployment approach where we configure AWS services without Infrastructure as Code (IaC). The key components include:
 
-•	Netlify: Hosts the static resume website.
+- Netlify: Hosts the static resume website.
+- AWS API Gateway: Acts as an entry point to handle API requests.
+- AWS Lambda: A serverless function to interact with the database.
+- AWS DynamoDB: A NoSQL database to store and retrieve visitor count.
+- GitHub Actions: Automates deployment of backend updates.
 
-•	AWS API Gateway: Acts as an entry point to handle API requests.
+## Project Breakdown
 
-•	AWS Lambda: A serverless function to interact with the database.
+### Frontend (Static Website)
 
-•	AWS DynamoDB: A NoSQL database to store and retrieve visitor count.
+- Developed the HTML, CSS, and JavaScript files for the resume.
+- Added JavaScript logic to fetch and update the visitor count.
+- Hosted the static files on Netlify.
 
-•	GitHub Actions: Automates deployment of backend updates.
+### Backend (API & Database)
 
-**Project Breakdown**
+- Created an AWS Lambda function to read/write visitor count from DynamoDB.
+- Configured an API Gateway to expose the Lambda function as a REST API.
+- Set up DynamoDB with a table to store visitor data.
 
-**Frontend (Static Website)**
+### CI/CD Pipeline (GitHub Actions)
 
-•	Developed the HTML, CSS, and JavaScript files for the resume.
+- Configured GitHub Actions to automate deployment of backend changes.
+- Used AWS CLI to update the Lambda function on code changes.
 
-•	Added JavaScript logic to fetch and update the visitor count.
+## Deployment Steps
 
-•	Hosted the static files on Netlify.
+### Setup AWS Services Manually
 
-**Backend (API & Database)**
+1. Created a DynamoDB Table (Name: `visitorCounter`, Primary Key: `id`).
+2. Deployed a Lambda function to update and retrieve visitor count.
+3. Configured API Gateway to connect with Lambda.
+4. Enabled CORS for API Gateway.
 
-•	Created an AWS Lambda function to read/write visitor count from DynamoDB.
+### Hosting on Netlify
 
-•	Configured an API Gateway to expose the Lambda function as a REST API.
+1. Deployed the frontend files to Netlify.
+2. Updated the API endpoint in JavaScript to point to API Gateway.
 
-•	Set up DynamoDB with a table to store visitor data.
+### Configuring GitHub Actions for Automation
 
-**CI/CD Pipeline (GitHub Actions)**
+1. Created an AWS IAM user with necessary permissions.
+2. Added GitHub secrets for `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`.
+3. Configured a workflow file in `.github/workflows/deploy.yml` to automate Lambda function updates.
 
-•	Configured GitHub Actions to automate deployment of backend changes.
+## Testing & Validation
 
-•	Used AWS CLI to update Lambda function on code changes.
+- Verified visitor count increments when visiting the site.
+- Checked API Gateway logs to confirm successful API calls.
+- Monitored DynamoDB updates for real-time data changes.
 
-**Deployment Steps**
+## Future Enhancements
 
-Setup AWS Services Manually
+- Implement AWS CloudFront for improved content delivery.
+- Migrate hosting to AWS S3 + CloudFront for a fully AWS-hosted solution.
+- Implement authentication for API security.
 
-•	Created a DynamoDB Table (Name: visitorCounter, Primary Key: id).
-
-•	Deployed a Lambda function to update and retrieve visitor count.
-
-•	Configured API Gateway to connect with Lambda.
-
-•	Enabled CORS for API Gateway.
-
-Hosting on Netlify
-
-•	Deployed the frontend files to Netlify.
-
-•	Updated the API endpoint in JavaScript to point to API Gateway.
-
-Configuring GitHub Actions for Automation
-   
-•	Created an AWS IAM user with necessary permissions.
-
-•	Added GitHub secrets for AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY.
-
-•	Configured a workflow file in .github/workflows/deploy.yml to automate Lambda function updates.
-
-Testing & Validation
-
-•	Verified visitor count increments when visiting the site.
-
-•	Checked API Gateway logs to confirm successful API calls.
-
-•	Monitored DynamoDB updates for real-time data changes.
-
-**Future Enhancements**
-
-•	Implement AWS CloudFront for improved content delivery.
-
-•	Migrate hosting to AWS S3 + CloudFront for a fully AWS-hosted solution.
-
-•	Implement authentication for API security.
-
-
-**Contributing**
+## Contributing
 
 Feel free to contribute by submitting issues or pull requests. Improvements and optimizations are always welcome!
 
+## Author
 
-Author
+Bheemender Gurram
 
-**Bheemender Gurram**
+## License
 
-
-License
 This project is licensed under the MIT License.
 
-**@MyCLoudResume: https://cloudresumewithbheem.netlify.app/**
+## Live Demo
 
-Credits: @[Gilbert Mutai](https://github.com/Mutai-Gilbert/Mutai-Gilbert)
+[Cloud Resume Challenge - Live](https://cloudresumewithbheem.netlify.app/)
+
+## Credits
+
+@Gilbert Mutai
